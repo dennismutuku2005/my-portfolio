@@ -26,7 +26,7 @@ export const metadata: Metadata = {
   description: "Full-Stack Developer & Digital Architect - Building the future, one line of code at a time",
   keywords: ["developer", "portfolio", "full-stack", "Dennis Muuo", "web development", "React", "Next.js"],
   authors: [{ name: "Dennis Muuo" }],
-    generator: 'Dennis Muuo',
+  generator: 'Dennis Muuo',
 }
 
 export const viewport: Viewport = {
@@ -41,7 +41,16 @@ export default function RootLayout({
   children: React.ReactNode
 }>) {
   return (
-    <html lang="en" className={`dark ${exo2.variable} ${orbitron.variable} ${saira.variable}`}>
+    <html
+      lang="en"
+      className={`dark ${exo2.variable} ${orbitron.variable} ${saira.variable}`}
+    >
+      <head>
+        {/* Force favicon manually */}
+        <link rel="icon" href="/favicon.ico" sizes="any" />
+        <link rel="shortcut icon" href="/favicon.ico" />
+      </head>
+
       <body
         className="min-h-screen overflow-x-hidden"
         style={{
@@ -53,5 +62,6 @@ export default function RootLayout({
         {children}
       </body>
     </html>
+
   )
 }
