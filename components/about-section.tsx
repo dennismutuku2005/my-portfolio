@@ -21,7 +21,7 @@ export function AboutSection() {
               <div className="flex items-center gap-4 pt-4">
                 <div className="w-2 h-2 bg-primary rounded-full animate-pulse" />
                 <span className="font-mono text-xs md:text-sm text-muted-foreground">
-                  STATUS: AVAILABLE FOR PROJECTS
+                  STATUS: NOT AVAILABLE FOR PROJECTS
                 </span>
               </div>
             </div>

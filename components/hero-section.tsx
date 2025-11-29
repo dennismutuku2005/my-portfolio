@@ -35,7 +35,7 @@ export function HeroSection() {
           </div>
 
           <div className="mb-4">
-            <span className="font-mono text-xs text-primary tracking-widest">{"// SYSTEM INITIALIZED"}</span>
+            <span className="font-mono text-xs text-primary tracking-widest">{"SYSTEM INITIALIZED"}</span>
           </div>
 
           <h1 className="font-mono text-3xl sm:text-4xl md:text-6xl lg:text-7xl font-bold mb-6 tracking-tight">
