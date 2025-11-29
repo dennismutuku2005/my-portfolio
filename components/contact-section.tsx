@@ -3,43 +3,73 @@
 import type React from "react"
 import { useState } from "react"
 import { ScrollWrapper } from "./scroll-wrapper"
-import { MailIcon, CopyIcon, CheckIcon, SendIcon } from "./icons"
+import { PhoneIcon, CopyIcon, CheckIcon, SendIcon } from "./icons"
 import { siteData } from "@/lib/site-data"
 
 interface FormData {
   name: string
-  email: string
+  mobile: string
   message: string
 }
 
 export function ContactSection() {
   const [formData, setFormData] = useState<FormData>({
     name: "",
-    email: "",
+    mobile: "",
     message: "",
   })
   const [copied, setCopied] = useState(false)
   const [submitted, setSubmitted] = useState(false)
   const [loading, setLoading] = useState(false)
 
-  const handleCopyEmail = async () => {
+  const handleCopyNumber = async () => {
     try {
-      await navigator.clipboard.writeText(siteData.contactEmail)
+      await navigator.clipboard.writeText(siteData.contactNumber)
       setCopied(true)
       setTimeout(() => setCopied(false), 2000)
     } catch {
-      window.location.href = `mailto:${siteData.contactEmail}`
+      window.location.href = `tel:${siteData.contactNumber}`
     }
   }
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
     setLoading(true)
-    await new Promise((resolve) => setTimeout(resolve, 1000))
-    setSubmitted(true)
-    setLoading(false)
-    setFormData({ name: "", email: "", message: "" })
-    setTimeout(() => setSubmitted(false), 3000)
+
+    try {
+      // Format the message with user's contact details
+      const notificationMessage = `🚀 New Contact Request 🚀
+
+Name: ${formData.name}
+Mobile: ${formData.mobile}
+Message: ${formData.message}
+
+Sent from your portfolio website.`
+
+      // Send notification
+      const response = await fetch("http://whatsapp.quickzingo.com/send", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          number: "254741390949",
+          message: notificationMessage
+        })
+      })
+
+      if (response.ok) {
+        setSubmitted(true)
+        setFormData({ name: "", mobile: "", message: "" })
+        setTimeout(() => setSubmitted(false), 3000)
+      } else {
+        alert("Failed to send message. Please try again.")
+      }
+    } catch (error) {
+      alert("Error sending message. Please try again.")
+    } finally {
+      setLoading(false)
+    }
   }
 
   return (
@@ -56,27 +86,23 @@ export function ContactSection() {
           <ScrollWrapper>
             <div className="space-y-6">
               <p className="font-sans text-base md:text-lg text-foreground leading-relaxed">
-                Ready to collaborate on your next project? Send me a message and I will get back to you as soon as
-                possible.
+                Ready to collaborate on your next project? Send me a message and I'll get back to you immediately.
               </p>
 
               <div className="bg-card border border-border p-4 md:p-6">
                 <div className="flex items-center gap-4 mb-4">
-                  <MailIcon className="w-5 h-5 text-primary" />
-                  <span className="font-mono text-xs md:text-sm text-muted-foreground">DIRECT_LINK</span>
+                  <PhoneIcon className="w-5 h-5 text-primary" />
+                  <span className="font-mono text-xs md:text-sm text-muted-foreground">DIRECT_CONTACT</span>
                 </div>
 
                 <div className="flex items-center gap-4 flex-wrap">
-                  <a
-                    href={`mailto:${siteData.contactEmail}`}
-                    className="font-sans text-sm md:text-base text-foreground hover:text-primary transition-colors break-all"
-                  >
-                    {siteData.contactEmail}
-                  </a>
+                  <span className="font-sans text-sm md:text-base text-foreground break-all">
+                    {siteData.contactNumber}
+                  </span>
                   <button
-                    onClick={handleCopyEmail}
+                    onClick={handleCopyNumber}
                     className="p-2 bg-secondary hover:bg-primary hover:text-primary-foreground transition-all border border-border"
-                    aria-label="Copy email address"
+                    aria-label="Copy phone number"
                   >
                     {copied ? <CheckIcon className="w-4 h-4" /> : <CopyIcon className="w-4 h-4" />}
                   </button>
@@ -86,7 +112,7 @@ export function ContactSection() {
               <div className="flex items-center gap-4">
                 <div className="w-2 h-2 bg-primary rounded-full animate-pulse" />
                 <span className="font-mono text-xs md:text-sm text-muted-foreground">
-                  RESPONSE_TIME: {"<"} 24 HOURS
+                  RESPONSE_TIME: INSTANT
                 </span>
               </div>
             </div>
@@ -96,7 +122,7 @@ export function ContactSection() {
             <form onSubmit={handleSubmit} className="space-y-4 md:space-y-6">
               <div>
                 <label htmlFor="name" className="block font-mono text-xs text-primary tracking-wider mb-2">
-                  NAME_INPUT
+                  YOUR_NAME
                 </label>
                 <input
                   type="text"
@@ -106,29 +132,29 @@ export function ContactSection() {
                   onChange={(e) => setFormData({ ...formData, name: e.target.value })}
                   required
                   className="w-full px-4 py-3 bg-input border border-border text-foreground font-sans focus:outline-none focus:border-primary transition-colors"
-                  placeholder="Enter your name"
+                  placeholder="Enter your full name"
                 />
               </div>
 
               <div>
-                <label htmlFor="email" className="block font-mono text-xs text-primary tracking-wider mb-2">
-                  EMAIL_INPUT
+                <label htmlFor="mobile" className="block font-mono text-xs text-primary tracking-wider mb-2">
+                  MOBILE_NUMBER
                 </label>
                 <input
-                  type="email"
-                  id="email"
-                  name="email"
-                  value={formData.email}
-                  onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+                  type="tel"
+                  id="mobile"
+                  name="mobile"
+                  value={formData.mobile}
+                  onChange={(e) => setFormData({ ...formData, mobile: e.target.value })}
                   required
                   className="w-full px-4 py-3 bg-input border border-border text-foreground font-sans focus:outline-none focus:border-primary transition-colors"
-                  placeholder="Enter your email"
+                  placeholder="Enter your mobile number"
                 />
               </div>
 
               <div>
                 <label htmlFor="message" className="block font-mono text-xs text-primary tracking-wider mb-2">
-                  MESSAGE_INPUT
+                  YOUR_MESSAGE
                 </label>
                 <textarea
                   id="message"
@@ -138,7 +164,7 @@ export function ContactSection() {
                   required
                   rows={5}
                   className="w-full px-4 py-3 bg-input border border-border text-foreground font-sans focus:outline-none focus:border-primary transition-colors resize-none"
-                  placeholder="Enter your message"
+                  placeholder="Tell me about your project..."
                 />
               </div>
 
@@ -155,7 +181,7 @@ export function ContactSection() {
                 ) : loading ? (
                   <>
                     <span className="w-5 h-5 border-2 border-primary-foreground border-t-transparent rounded-full animate-spin" />
-                    TRANSMITTING...
+                    SENDING...
                   </>
                 ) : (
                   <>
