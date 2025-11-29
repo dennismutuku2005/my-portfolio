@@ -1,12 +1,11 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  typescript: {
-    ignoreBuildErrors: true,
-  },
+  output: 'export',           // Enable static export
+  trailingSlash: true,        // Optional: adds a trailing slash to all routes
   images: {
-    unoptimized: true,
+    unoptimized: true,        // Required: disables Next.js image optimization
   },
- 
-}
+  reactStrictMode: true,      // Recommended
+};
 
-export default nextConfig
+export default nextConfig;

@@ -24,7 +24,7 @@ export function HeroSection() {
                 }}
               >
                 <img
-                  src="/futuristic-developer-portrait-cyberpunk-blue-glow.jpg"
+                  src="/mydp.jpeg"
                   alt={`Portrait of ${siteData.name}`}
                   className="w-full h-full object-cover"
                   loading="lazy"

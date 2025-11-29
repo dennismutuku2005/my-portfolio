@@ -18,9 +18,10 @@ export function MobileNav() {
 
   return (
     <div className="md:hidden">
+      {/* Changed from left-3 to right-3 */}
       <button
         onClick={() => setIsOpen(true)}
-        className="fixed top-3 left-3 z-50 p-2 bg-card border border-border"
+        className="fixed top-3 right-3 z-50 p-2 bg-card border border-border"
         aria-label="Open navigation menu"
       >
         <MenuIcon className="w-5 h-5 text-primary" />
