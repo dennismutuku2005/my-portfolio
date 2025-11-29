@@ -14,7 +14,7 @@ export function ScanlineOverlay() {
 
   return (
     <div
-      className="fixed inset-0 pointer-events-none z-[100]"
+      className="fixed inset-0 pointer-events-none"
       style={{
         background: `repeating-linear-gradient(
           0deg,

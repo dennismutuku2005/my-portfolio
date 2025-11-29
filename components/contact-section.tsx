@@ -33,12 +33,11 @@ export function ContactSection() {
   }
 
   const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault()
-    setLoading(true)
+  e.preventDefault()
+  setLoading(true)
 
-    try {
-      // Format the message with user's contact details
-      const notificationMessage = `🚀 New Contact Request 🚀
+  try {
+    const notificationMessage = `🚀 New Contact Request 🚀
 
 Name: ${formData.name}
 Mobile: ${formData.mobile}
@@ -46,31 +45,31 @@ Message: ${formData.message}
 
 Sent from your portfolio website.`
 
-      // Send notification
-      const response = await fetch("https://whatsapp.quickzingo.com/send", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          number: "254741390949",
-          message: notificationMessage
-        })
+    // Call your PHP proxy instead of direct API
+    const response = await fetch("https://api.onenetwork-system.com/portfolio.php", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        number: "254741390949",
+        message: notificationMessage
       })
+    })
 
-      if (response.ok) {
-        setSubmitted(true)
-        setFormData({ name: "", mobile: "", message: "" })
-        setTimeout(() => setSubmitted(false), 3000)
-      } else {
-        alert("Failed to send message. Please try again.")
-      }
-    } catch (error) {
-      alert("Error sending message. Please try again.")
-    } finally {
-      setLoading(false)
+    if (response.ok) {
+      setSubmitted(true)
+      setFormData({ name: "", mobile: "", message: "" })
+      setTimeout(() => setSubmitted(false), 3000)
+    } else {
+      alert("Failed to send message. Please try again.")
     }
+  } catch (error) {
+    alert("Error sending message. Please try again.")
+  } finally {
+    setLoading(false)
   }
+}
 
   return (
     <section id="contact" className="relative py-16 md:py-24">
