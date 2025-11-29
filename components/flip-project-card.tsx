@@ -70,13 +70,13 @@ export function FlipProjectCard({ project, index }: { project: Project; index: n
         onMouseMove={handleMouseMove}
         onMouseEnter={handleMouseEnter}
         onMouseLeave={handleMouseLeave}
-        className="relative w-full h-80 cursor-pointer transition-all duration-300 transform-style-3d"
+        className="relative w-full h-96 cursor-pointer transition-all duration-300 transform-style-3d"
         style={{
           transformStyle: "preserve-3d",
           transform: isFlipped ? "rotateY(180deg)" : "rotateY(0deg)",
         }}
       >
-        {/* Front Side */}
+        {/* Front Side - FULL SCREENSHOT */}
         <div
           className="absolute inset-0 w-full h-full bg-card border border-border overflow-hidden rounded-lg shadow-lg transition-all duration-300"
           style={{ backfaceVisibility: "hidden" }}
@@ -86,50 +86,40 @@ export function FlipProjectCard({ project, index }: { project: Project; index: n
             isHovered ? 'opacity-100' : 'opacity-0'
           }`} />
           
-          {/* Screenshot */}
-          <div className="relative w-full h-48 bg-gray-200 overflow-hidden">
+          {/* FULL SCREENSHOT - Takes entire card */}
+          <div className="relative w-full h-full bg-gray-200 overflow-hidden">
             <img
               src={project.screenshot || "/placeholder.svg"}
               alt={`Screenshot of ${project.title}`}
-              className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+              className="w-full h-full object-contain transition-transform duration-500 group-hover:scale-110"
               loading="lazy"
             />
-            <div className="absolute inset-0 bg-black/20 transition-all duration-300 group-hover:bg-black/10" />
+            <div className="absolute inset-0 bg-black/30 transition-all duration-300 group-hover:bg-black/20" />
             
-            {/* Hover overlay */}
-            <div className={`absolute inset-0 bg-primary/5 flex items-center justify-center transition-all duration-300 ${
-              isHovered ? 'opacity-100' : 'opacity-0'
-            }`}>
-              <div className="text-center">
-                <div className="font-mono text-primary text-sm mb-1">CLICK_TO_FLIP</div>
-                <div className="w-8 h-px bg-primary mx-auto"></div>
+            {/* Content Overlay */}
+            <div className="absolute bottom-0 left-0 right-0 from-black/90 via-black/50 to-transparent p-6">
+              <div className="flex items-center gap-2 mb-2">
+                <span className="font-mono text-sm text-primary">
+                  {String(index + 1).padStart(2, "0")}
+                </span>
+                <div className="w-4 h-px bg-primary" />
+                <h3 className="font-mono text-xl font-semibold text-white">
+                  {project.title}
+                </h3>
               </div>
+              
+              <p className="font-sans text-sm text-gray-300 line-clamp-2">
+                {project.description}
+              </p>
             </div>
-          </div>
 
-          {/* Front Content */}
-          <div className="p-4 relative">
-            <div className="flex items-center gap-2 mb-2">
-              <span className="font-mono text-sm text-primary">
-                {String(index + 1).padStart(2, "0")}
-              </span>
-              <div className="w-4 h-px bg-primary" />
-              <h3 className="font-mono text-lg font-semibold text-foreground">
-                {project.title}
-              </h3>
-            </div>
-            
-            <p className="font-sans text-sm text-muted-foreground line-clamp-2">
-              {project.description}
-            </p>
-
-            {/* Flip Hint */}
-            <div className={`absolute top-4 right-4 text-primary transition-all duration-300 ${
-              isHovered ? 'scale-110' : 'scale-100'
+            {/* Flip Hint - Top Right */}
+            <div className={`absolute top-4 right-4 transition-all duration-300 ${
+              isHovered ? 'scale-110 opacity-100' : 'scale-100 opacity-80'
             }`}>
-              <div className="flex items-center gap-1 text-xs">
-                <span>FLIP</span>
-                <svg className="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+              <div className="flex items-center gap-2 bg-black/70 backdrop-blur-sm px-3 py-2 rounded-full border border-primary/30">
+                <span className="font-mono text-xs text-primary">CLICK_TO_FLIP</span>
+                <svg className="w-4 h-4 text-primary" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
                   <path d="M3 12h18M3 12l4-4M3 12l4 4" />
                 </svg>
               </div>
@@ -137,9 +127,9 @@ export function FlipProjectCard({ project, index }: { project: Project; index: n
           </div>
         </div>
 
-        {/* Back Side */}
+        {/* Back Side - FULL HEIGHT */}
         <div
-          className="absolute inset-0 w-full h-full bg-card border border-primary overflow-hidden rounded-lg shadow-lg transition-all duration-300"
+          className="absolute inset-0 w-full h-full from-card to-card/95 border border-primary overflow-hidden rounded-lg shadow-lg transition-all duration-300"
           style={{
             backfaceVisibility: "hidden",
             transform: "rotateY(180deg)",
@@ -153,9 +143,15 @@ export function FlipProjectCard({ project, index }: { project: Project; index: n
           <div className="p-6 h-full flex flex-col relative">
             {/* Header with Links */}
             <div className="flex items-center justify-between mb-4">
-              <h3 className="font-mono text-lg font-semibold text-primary">
-                {project.title}
-              </h3>
+              <div className="flex items-center gap-2">
+                <span className="font-mono text-sm text-primary">
+                  {String(index + 1).padStart(2, "0")}
+                </span>
+                <div className="w-4 h-px bg-primary" />
+                <h3 className="font-mono text-lg font-semibold text-primary">
+                  {project.title}
+                </h3>
+              </div>
               <div className="flex gap-2">
                 <a
                   href={project.github}
@@ -186,31 +182,34 @@ export function FlipProjectCard({ project, index }: { project: Project; index: n
             </p>
 
             {/* Tech Stack */}
-            <div className="flex flex-wrap gap-2 mb-4">
-              {project.techStack.map((tech) => {
-                const IconComponent = techIconMap[tech]
-                return (
-                  <span
-                    key={tech}
-                    className="flex items-center gap-1.5 px-2 py-1 bg-secondary text-secondary-foreground font-mono text-xs border border-border rounded transform hover:scale-105 transition-transform"
-                  >
-                    {IconComponent && <IconComponent className="w-3.5 h-3.5" />}
-                    {tech}
-                  </span>
-                )
-              })}
+            <div className="mb-4">
+              <h4 className="font-mono text-xs text-muted-foreground mb-2 uppercase tracking-wider">TECH_STACK</h4>
+              <div className="flex flex-wrap gap-2">
+                {project.techStack.map((tech) => {
+                  const IconComponent = techIconMap[tech]
+                  return (
+                    <span
+                      key={tech}
+                      className="flex items-center gap-1.5 px-3 py-1.5 bg-secondary text-secondary-foreground font-mono text-xs border border-border rounded-lg transform hover:scale-105 transition-transform"
+                    >
+                      {IconComponent && <IconComponent className="w-3.5 h-3.5" />}
+                      {tech}
+                    </span>
+                  )
+                })}
+              </div>
             </div>
 
             {/* Expand Button */}
             <button
               onClick={handleExpand}
-              className="flex items-center justify-center gap-2 w-full py-2 bg-secondary hover:bg-primary/20 transition-all border border-border rounded text-sm font-mono transform hover:scale-105"
+              className="flex items-center justify-center gap-2 w-full py-3 bg-secondary hover:bg-primary/20 transition-all border border-border rounded-lg text-sm font-mono transform hover:scale-105 group/button"
             >
               <span>VIEW_DETAILS</span>
               <ChevronDownIcon 
                 className={`w-4 h-4 transition-transform duration-300 ${
                   isExpanded ? "rotate-180" : ""
-                }`} 
+                } group-hover/button:translate-y-0.5`} 
               />
             </button>
           </div>
@@ -220,7 +219,7 @@ export function FlipProjectCard({ project, index }: { project: Project; index: n
       {/* Expandable Content */}
       <div
         className={`
-          mt-2 overflow-hidden transition-all duration-500 ease-in-out
+          mt-3 overflow-hidden transition-all duration-500 ease-in-out
           ${isExpanded ? "max-h-32 opacity-100" : "max-h-0 opacity-0"}
         `}
       >
@@ -236,10 +235,10 @@ export function FlipProjectCard({ project, index }: { project: Project; index: n
       </div>
 
       {/* Private Projects Notice */}
-      <div className="mt-4 p-4 bg-secondary/50 border border-border rounded-lg text-center">
-        <div className="flex items-center justify-center gap-2 text-sm text-muted-foreground">
+      <div className="mt-4 p-4 bg-secondary/50 border border-border rounded-lg text-center backdrop-blur-sm">
+        <div className="flex items-center justify-center gap-3 text-sm text-muted-foreground">
           <MailIcon className="w-4 h-4" />
-          <span className="font-mono">
+          <span className="font-mono text-xs">
             My projects are private. You can contact me for more info.
           </span>
         </div>
