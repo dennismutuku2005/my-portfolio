@@ -16,10 +16,6 @@ export function Footer() {
             >
               DEV_ROOM
             </Link>
-            <div className="flex items-center gap-2">
-              <span className="w-2 h-2 bg-primary rounded-full animate-pulse" />
-              <span className="font-mono text-[10px] md:text-xs text-primary">SYSTEM ONLINE</span>
-            </div>
           </div>
         </div>
       </div>
