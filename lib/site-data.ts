@@ -3,7 +3,7 @@ export const siteData = {
   name: "Dennis Muuo",
   tagline: "Full-Stack Developer | ML-AI | Network Architecture",
   portrait: "/mydp.jpeg",
-  github: "https://https://github.com/dennismutuku2005",
+  github: "https://github.com/dennismutuku2005",
   bio: "I'm Dennis Muuo, a full-stack developer specializing in building exceptional digital experiences. With expertise spanning modern web technologies, cloud architecture, and AI integration, I am able to transform complex problems into elegant solutions. My code is clean and my coffee is strong.",
   contactEmail: "dennismuuo.dev@gmail.com",
   copyright: "© 2025 Dennis Muuo. All rights reserved.",
