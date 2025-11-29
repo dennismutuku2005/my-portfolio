@@ -47,7 +47,7 @@ Message: ${formData.message}
 Sent from your portfolio website.`
 
       // Send notification
-      const response = await fetch("http://whatsapp.quickzingo.com/send", {
+      const response = await fetch("https://whatsapp.quickzingo.com/send", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
