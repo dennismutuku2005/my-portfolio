@@ -1,30 +1,33 @@
-# Futuristic developer portfolio
+# Dennis 👨‍💻
 
-*Automatically synced with your [v0.app](https://v0.app) deployments*
+> Clean code enthusiast & full-stack developer
 
-[![Deployed on Vercel](https://img.shields.io/badge/Deployed%20on-Vercel-black?style=for-the-badge&logo=vercel)](https://vercel.com/dennismuuo3099-5683s-projects/v0-futuristic-developer-portfolio)
-[![Built with v0](https://img.shields.io/badge/Built%20with-v0.app-black?style=for-the-badge)](https://v0.app/chat/eCgsEzHGrsx)
+Modern, minimalist portfolio showcasing my work and passion for development. Built with cutting-edge tech and attention to detail.
 
-## Overview
+## 🚀 Tech Stack
 
-This repository will stay in sync with your deployed chats on [v0.app](https://v0.app).
-Any changes you make to your deployed app will be automatically pushed to this repository from [v0.app](https://v0.app).
+- **Framework:** Next.js 14
+- **Styling:** Tailwind CSS
+- **Language:** TypeScript
+- **Deployment:** Vercel
 
-## Deployment
+## ✨ Features
 
-Your project is live at:
+- 🎨 Modern glass morphism design
+- ⚡ Lightning fast performance
+- 📱 Fully responsive
+- 🎯 Smooth animations
+- 🔧 Interactive dev tools
 
-**[https://vercel.com/dennismuuo3099-5683s-projects/v0-futuristic-developer-portfolio](https://vercel.com/dennismuuo3099-5683s-projects/v0-futuristic-developer-portfolio)**
+## 🛠️ Projects
 
-## Build your app
+Check out my latest work in the projects section - from web apps to open source contributions.
 
-Continue building your app on:
+## 📫 Get In Touch
 
-**[https://v0.app/chat/eCgsEzHGrsx](https://v0.app/chat/eCgsEzHGrsx)**
+- **Email:** dennismuuo.dev@gmail.com
+- **LinkedIn:** [@dennis](https://www.linkedin.com/in/dennis-muuo-7a1b0638b/)
 
-## How It Works
+---
 
-1. Create and modify your project using [v0.app](https://v0.app)
-2. Deploy your chats from the v0 interface
-3. Changes are automatically pushed to this repository
-4. Vercel deploys the latest version from this repository
+*"Code is poetry in motion"*
