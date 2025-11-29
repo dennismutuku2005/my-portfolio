@@ -19,7 +19,7 @@ export function AboutSection() {
             <h2 className="font-mono text-xl md:text-2xl lg:text-3xl text-primary tracking-wider">
               ABOUT_ME
             </h2>
-            <div className="flex-1 h-px bg-gradient-to-r from-primary to-transparent" />
+            <div className="flex-1 h-px from-primary to-transparent" />
           </div>
         </ScrollWrapper>
 
@@ -133,7 +133,7 @@ function BinaryBackground() {
 
   return (
     <div className="absolute inset-0 overflow-hidden pointer-events-none">
-      <div className="absolute inset-0 bg-gradient-to-br from-background via-background to-primary/5" />
+      <div className="absolute inset-0 from-background via-background to-primary/5" />
       <div className="absolute top-0 left-0 w-full h-full opacity-5">
         <div className="animate-float-slow">
           {binaryStream.map((bit, index) => (
