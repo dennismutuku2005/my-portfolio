@@ -29,15 +29,6 @@ export const siteData = {
       github: "https://github.com/dennismutuku2005",
       live: "https://pppoe.onenetwork-system.com/",
     },
-    {
-      id: "Pre-order system for Restaurants",
-      title: "OneWay Restaurants",
-      description: "A pre-ordering system for restaurants that allows customers to place orders in advance, reducing wait times and improving service efficiency",
-      screenshot: "/chat-application-dark-theme-neon-blue-interface.jpg",
-      techStack: ["Flutter", "Node.js", "Socket.io", "Mysql", "Dart"],
-      github: "https://github.com/dennismutuku2005",
-      live: "https://chat.dennismuuo.dev",
-    },
   ],
 
   education: [

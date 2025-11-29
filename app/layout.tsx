@@ -26,7 +26,7 @@ export const metadata: Metadata = {
   description: "Full-Stack Developer & Digital Architect - Building the future, one line of code at a time",
   keywords: ["developer", "portfolio", "full-stack", "Dennis Muuo", "web development", "React", "Next.js"],
   authors: [{ name: "Dennis Muuo" }],
-    generator: 'v0.app'
+    generator: 'Dennis Muuo',
 }
 
 export const viewport: Viewport = {
