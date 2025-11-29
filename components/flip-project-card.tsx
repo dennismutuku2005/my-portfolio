@@ -112,7 +112,7 @@ export function FlipProjectCard({ project, index }: { project: Project; index: n
               </div>
             </div>
 
-            <p className="font-sans text-sm text-muted-foreground mb-4 flex-grow">{project.description}</p>
+            <p className="font-sans text-sm text-muted-foreground mb-4">{project.description}</p>
 
             {/* Tech stack with real icons */}
             <div className="flex flex-wrap gap-2 mb-4">
@@ -153,32 +153,6 @@ export function FlipProjectCard({ project, index }: { project: Project; index: n
           clipPath: isExpanded ? "ellipse(100% 100% at 50% 0%)" : "ellipse(100% 0% at 50% 0%)",
         }}
       >
-        <div className="p-4 bg-card border-x border-b border-primary">
-          <div className="space-y-3">
-            <div className="flex items-center gap-2">
-              <div className="w-2 h-2 bg-primary rounded-full animate-pulse" />
-              <span className="font-mono text-xs text-primary">SYSTEM_STATUS: OPERATIONAL</span>
-            </div>
-            <div className="grid grid-cols-2 gap-4 text-xs font-mono">
-              <div>
-                <span className="text-muted-foreground">COMMITS:</span>
-                <span className="text-foreground ml-2">247</span>
-              </div>
-              <div>
-                <span className="text-muted-foreground">STARS:</span>
-                <span className="text-foreground ml-2">89</span>
-              </div>
-              <div>
-                <span className="text-muted-foreground">FORKS:</span>
-                <span className="text-foreground ml-2">23</span>
-              </div>
-              <div>
-                <span className="text-muted-foreground">ISSUES:</span>
-                <span className="text-foreground ml-2">5</span>
-              </div>
-            </div>
-          </div>
-        </div>
       </div>
     </div>
   )

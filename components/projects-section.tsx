@@ -8,12 +8,7 @@ export function ProjectsSection() {
   const projectsWithImages = siteData.projects.map((project, index) => ({
     ...project,
     screenshot:
-      [
-        "/futuristic-ai-dashboard-dark-theme-blue-neon.jpg",
-        "/modern-cms-interface-dark-blue-theme.jpg",
-        "/futuristic-ecommerce-platform-dark-cyber-theme.jpg",
-        "/chat-application-dark-theme-neon-blue-interface.jpg",
-      ][index] || project.screenshot,
+      project.screenshot,
   }))
 
   return (
@@ -24,7 +19,7 @@ export function ProjectsSection() {
             <div className="w-8 md:w-12 h-px bg-primary" />
             <h2 className="font-mono text-xl md:text-2xl lg:text-3xl text-primary tracking-wider">PROJECTS</h2>
           </div>
-          <p className="font-mono text-xs text-muted-foreground mb-8">{"// Click cards to flip and reveal details"}</p>
+          <p className="font-mono text-xs text-muted-foreground mb-8">{"Click cards to flip and reveal details"}</p>
         </ScrollWrapper>
 
         <div className="grid sm:grid-cols-2 gap-4 md:gap-6">
