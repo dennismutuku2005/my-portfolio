@@ -1,170 +1,121 @@
 "use client"
 
-import { useState, useEffect } from "react"
-import { ScrollWrapper } from "./scroll-wrapper"
+import { motion } from "framer-motion"
 import { siteData } from "@/lib/site-data"
+import { Sparkles, GraduationCap, Briefcase, Heart } from "lucide-react"
 
 export function AboutSection() {
-  const [activeEdu, setActiveEdu] = useState(0)
-
   return (
-    <section id="about" className="relative py-16 md:py-24 bg-background overflow-hidden">
-      {/* Animated binary background */}
-      <BinaryBackground />
-      
-      <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <ScrollWrapper>
-          <div className="flex items-center gap-4 mb-12 md:mb-16">
-            <div className="w-8 md:w-12 h-px bg-primary" />
-            <h2 className="font-mono text-xl md:text-2xl lg:text-3xl text-primary tracking-wider">
-              ABOUT_ME
-            </h2>
-            <div className="flex-1 h-px from-primary to-transparent" />
+    <section id="about" className="relative py-24 md:py-32 bg-background">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12">
+
+          {/* Section Title - Left Floating */}
+          <div className="lg:col-span-4">
+            <motion.div
+              initial={{ opacity: 0, x: -20 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              className="lg:sticky lg:top-24"
+            >
+              <div className="flex items-center gap-2 text-primary font-mono text-xs tracking-widest uppercase mb-4">
+                <Sparkles className="w-4 h-4" />
+                <span>The Narrative</span>
+              </div>
+              <h2 className="text-4xl md:text-6xl font-black tracking-tight mb-8">
+                Driven by <span className="text-glow italic">Curiosity</span>.
+              </h2>
+              <p className="text-lg text-muted-foreground leading-relaxed font-light mb-12">
+                I don't just write code. I architect experiences that feel intuitive, look stunning, and scale seamlessly.
+              </p>
+
+              <div className="space-y-4">
+                <AboutCard icon={GraduationCap} title="Education" desc="Currently at Technical University of Kenya" color="text-primary" />
+                <AboutCard icon={Briefcase} title="Experience" desc="Full-Stack Engineering & AI Systems" color="text-accent" />
+                <AboutCard icon={Heart} title="Passion" desc="Advancing the African Tech Ecosystem" color="text-red-400" />
+              </div>
+            </motion.div>
           </div>
-        </ScrollWrapper>
 
-        <div className="grid lg:grid-cols-2 gap-12 md:gap-16">
-          {/* Left Column - Bio with Tech Stats */}
-          <ScrollWrapper className="order-2 lg:order-1">
-            <div className="relative">
-              <div className="bg-card/80 backdrop-blur-sm border border-primary/20 p-6 md:p-8 rounded-lg shadow-2xl">
-                <div className="space-y-6">
-                  <p className="font-sans text-base md:text-lg text-foreground leading-relaxed">
-                    {siteData.bio}
-                  </p>
-                  
-                  {/* Interactive Tech Stats */}
-                  <div className="grid grid-cols-2 gap-4 pt-6 border-t border-border">
-                    <TechStat label="CODE_COMMITS" value="2.4K+" />
-                    <TechStat label="PROJECTS_SHIPPED" value="47+" />
-                    <TechStat label="COFFEE_CUPS" value="∞" />
-                    <TechStat label="BUGS_SQUASHED" value="1.2K+" />
-                  </div>
+          {/* Main Content Area - Right Bento Grid */}
+          <div className="lg:col-span-8">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              {/* Big Bio Card */}
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                className="md:col-span-2 p-8 md:p-12 rounded-[2.5rem] bg-secondary/30 border border-border/50 backdrop-blur-sm"
+              >
+                <p className="text-xl md:text-2xl text-foreground font-light leading-relaxed mb-8 italic">
+                  "{siteData.bio}"
+                </p>
+                <div className="flex flex-wrap gap-4 pt-8 border-t border-border/50">
+                  <div className="px-4 py-2 bg-background/50 rounded-xl border border-border text-[10px] font-mono text-muted-foreground">EST: 2023</div>
+                  <div className="px-4 py-2 bg-background/50 rounded-xl border border-border text-[10px] font-mono text-muted-foreground">LOC: GLOBAL</div>
+                  <div className="px-4 py-2 bg-background/50 rounded-xl border border-border text-[10px] font-mono text-muted-foreground">LANG: EN_SW</div>
                 </div>
-              </div>
-              
-              {/* Status Indicator */}
-              <div className="flex items-center gap-3 mt-6 p-4 bg-secondary/50 border border-border rounded-lg">
-                <div className="flex space-x-1">
-                  <div className="w-2 h-2 bg-red-400 rounded-full animate-pulse" />
-                  <div className="w-2 h-2 bg-yellow-400 rounded-full animate-pulse delay-75" />
-                  <div className="w-2 h-2 bg-green-400 rounded-full animate-pulse delay-150" />
-                </div>
-                <span className="font-mono text-xs md:text-sm text-muted-foreground">
-                  STATUS: FOCUSED_ON_CURRENT_MISSION
-                </span>
-              </div>
-            </div>
-          </ScrollWrapper>
+              </motion.div>
 
-          {/* Right Column - Interactive Timeline */}
-          <ScrollWrapper className="order-1 lg:order-2">
-            <div className="relative">
-              <div className="bg-card/80 backdrop-blur-sm border border-primary/20 p-6 md:p-8 rounded-lg shadow-2xl">
-                <h3 className="font-mono text-base md:text-lg text-primary tracking-wider mb-8">
-                  {"// EDUCATION_TIMELINE"}
-                </h3>
+              {/* Stats Cards */}
+              <StatCard value="50+" label="Projects Delivered" delay={0.1} />
+              <StatCard value="24/7" label="System Monitoring" delay={0.2} />
 
-                {/* Timeline Navigation */}
-                <div className="flex gap-2 mb-6 overflow-x-auto pb-2">
-                  {siteData.education.map((edu, index) => (
-                    <button
-                      key={edu.id}
-                      onClick={() => setActiveEdu(index)}
-                      className={`font-mono text-xs px-3 py-1 rounded border transition-all ${
-                        activeEdu === index
-                          ? "bg-primary text-primary-foreground border-primary"
-                          : "bg-secondary text-muted-foreground border-border hover:border-primary/50"
-                      }`}
-                    >
-                      {edu.year}
-                    </button>
-                  ))}
-                </div>
-
-                {/* Animated Timeline Content */}
-                <div className="relative pl-8 border-l-2 border-primary/30">
-                  {siteData.education.map((edu, index) => (
-                    <div
-                      key={edu.id}
-                      className={`relative transition-all duration-500 ${
-                        activeEdu === index
-                          ? "opacity-100 translate-x-0"
-                          : "opacity-40 -translate-x-2 pointer-events-none"
-                      }`}
-                    >
-                      <div className="absolute -left-[33px] top-0 w-6 h-6 bg-background border-4 border-primary rounded-full" />
-                      
-                      <div className="bg-secondary/50 border border-border p-6 rounded-lg hover:border-primary/50 transition-colors mb-6">
-                        <span className="font-mono text-xs text-primary bg-primary/10 px-2 py-1 rounded">
-                          {edu.year}
-                        </span>
-                        <h4 className="font-sans text-lg md:text-xl text-foreground mt-3 mb-2">
-                          {edu.degree}
-                        </h4>
-                        <p className="font-sans text-sm text-muted-foreground font-medium">
-                          {edu.institution}
-                        </p>
-                        <p className="font-sans text-sm text-muted-foreground mt-3 leading-relaxed">
-                          {edu.description}
-                        </p>
+              {/* Timeline Mini-view */}
+              <motion.div
+                initial={{ opacity: 0, scale: 0.95 }}
+                whileInView={{ opacity: 1, scale: 1 }}
+                className="md:col-span-2 p-8 rounded-[2.5rem] bg-card border border-border/50 overflow-hidden relative"
+              >
+                <h3 className="text-sm font-mono text-primary uppercase tracking-[0.2em] mb-8 px-2 border-l-2 border-primary">Academic Milestone</h3>
+                <div className="space-y-8">
+                  {siteData.education.slice(0, 2).map((edu, i) => (
+                    <div key={i} className="flex gap-6 group">
+                      <div className="flex flex-col items-center">
+                        <div className="w-3 h-3 rounded-full bg-primary mt-1.5" />
+                        <div className="w-[1px] flex-1 bg-border/50 mt-2" />
+                      </div>
+                      <div>
+                        <div className="text-[10px] font-mono text-muted-foreground mb-1 uppercase tracking-wider">{edu.year}</div>
+                        <div className="text-xl font-bold group-hover:text-primary transition-colors">{edu.degree}</div>
+                        <div className="text-sm text-muted-foreground font-medium">{edu.institution}</div>
+                        <p className="text-xs text-muted-foreground/70 mt-2 max-w-md">{edu.description}</p>
                       </div>
                     </div>
                   ))}
                 </div>
-              </div>
+              </motion.div>
             </div>
-          </ScrollWrapper>
+          </div>
+
         </div>
       </div>
     </section>
   )
 }
 
-function BinaryBackground() {
-  const [binaryStream, setBinaryStream] = useState<string[]>([])
-
-  useEffect(() => {
-    const stream = Array.from({ length: 50 }, () => 
-      Math.random() > 0.5 ? "1" : "0"
-    )
-    setBinaryStream(stream)
-  }, [])
-
+function AboutCard({ icon: Icon, title, desc, color }: any) {
   return (
-    <div className="absolute inset-0 overflow-hidden pointer-events-none">
-      <div className="absolute inset-0 from-background via-background to-primary/5" />
-      <div className="absolute top-0 left-0 w-full h-full opacity-5">
-        <div className="animate-float-slow">
-          {binaryStream.map((bit, index) => (
-            <span
-              key={index}
-              className="font-mono text-xs text-foreground mx-1 opacity-70"
-              style={{
-                animationDelay: `${index * 0.1}s`,
-                position: 'absolute',
-                left: `${(index * 3) % 100}%`,
-                top: `${(index * 2) % 100}%`,
-              }}
-            >
-              {bit}
-            </span>
-          ))}
-        </div>
+    <div className="flex items-center gap-4 p-4 rounded-2xl bg-secondary/30 border border-border/30 hover:border-primary/30 transition-all group">
+      <div className={`p-2 rounded-xl bg-background/50 group-hover:scale-110 transition-transform`}>
+        <Icon className={`w-5 h-5 ${color}`} />
+      </div>
+      <div>
+        <div className="text-xs font-bold text-foreground">{title}</div>
+        <div className="text-[10px] text-muted-foreground">{desc}</div>
       </div>
     </div>
   )
 }
 
-function TechStat({ label, value }: { label: string; value: string }) {
+function StatCard({ value, label, delay }: any) {
   return (
-    <div className="text-center p-3 bg-secondary/50 border border-border rounded-lg hover:border-primary/30 transition-colors">
-      <div className="font-mono text-2xl md:text-3xl font-bold text-primary mb-1">
-        {value}
-      </div>
-      <div className="font-mono text-xs text-muted-foreground tracking-wide">
-        {label}
-      </div>
-    </div>
+    <motion.div
+      initial={{ opacity: 0, y: 20 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      transition={{ delay }}
+      className="p-8 rounded-[2.5rem] bg-background border border-border/50 flex flex-col justify-center items-center text-center group hover:border-primary/30 transition-all h-48 md:h-auto"
+    >
+      <div className="text-4xl md:text-6xl font-black text-primary mb-2 group-hover:scale-110 transition-transform">{value}</div>
+      <div className="text-[10px] font-mono uppercase tracking-[0.3em] text-muted-foreground">{label}</div>
+    </motion.div>
   )
 }
