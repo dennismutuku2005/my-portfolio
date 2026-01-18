@@ -1,59 +1,89 @@
 "use client"
 
 import { useState } from "react"
+import { motion, AnimatePresence } from "framer-motion"
 import Link from "next/link"
-import { CloseIcon, MenuIcon, RocketIcon } from "./icons"
+import { X, Rocket, Github } from "lucide-react"
+import { siteData } from "@/lib/site-data"
 
 const navItems = [
-  { href: "#home", label: "HOME" },
-  { href: "#about", label: "ABOUT" },
-  { href: "#projects", label: "PROJECTS" },
-  { href: "#stack", label: "STACK" },
-  { href: "#contact", label: "CONTACT" },
-  { href: "/dev-room", label: "DEV_ROOM", special: true },
+  { href: "#home", label: "Home" },
+  { href: "#about", label: "About" },
+  { href: "#projects", label: "Projects" },
+  { href: "#stack", label: "Stack" },
+  { href: "#contact", label: "Contact" },
 ]
 
-export function MobileNav() {
-  const [isOpen, setIsOpen] = useState(false)
+interface MobileNavProps {
+  isOpen: boolean
+  setIsOpen: (open: boolean) => void
+}
 
+export function MobileNav({ isOpen, setIsOpen }: MobileNavProps) {
   return (
-    <div className="md:hidden">
-      {/* Changed from left-3 to right-3 */}
-      <button
-        onClick={() => setIsOpen(true)}
-        className="fixed top-3 right-3 z-50 p-2 bg-card border border-border"
-        aria-label="Open navigation menu"
-      >
-        <MenuIcon className="w-5 h-5 text-primary" />
-      </button>
-
+    <AnimatePresence>
       {isOpen && (
-        <div className="fixed inset-0 z-50 bg-background">
-          <button
-            onClick={() => setIsOpen(false)}
-            className="absolute top-4 right-4 p-2 text-foreground"
-            aria-label="Close navigation menu"
-          >
-            <CloseIcon className="w-6 h-6" />
-          </button>
+        <motion.div
+          initial={{ opacity: 0, x: "100%" }}
+          animate={{ opacity: 1, x: 0 }}
+          exit={{ opacity: 0, x: "100%" }}
+          transition={{ type: "spring", damping: 25, stiffness: 200 }}
+          className="fixed inset-0 z-[100] bg-background/95 backdrop-blur-2xl md:hidden flex flex-col"
+        >
+          <div className="flex items-center justify-between px-8 py-6 border-b border-border/50">
+            <Link href="#home" onClick={() => setIsOpen(false)} className="flex items-center gap-3">
+              <div className="w-10 h-10 bg-primary/20 rounded-2xl flex items-center justify-center text-primary font-black border border-primary/20">
+                <img src="/logo.png" alt="M" className="w-6 h-6 object-contain" />
+              </div>
+              <span className="font-bold tracking-tighter text-xl">Muuo<span className="text-primary">.</span>dev</span>
+            </Link>
+            <button
+              onClick={() => setIsOpen(false)}
+              className="p-3 rounded-2xl bg-secondary/50 border border-border/50 text-foreground"
+            >
+              <X className="w-6 h-6" />
+            </button>
+          </div>
 
-          <nav className="flex flex-col items-center justify-center h-full gap-6">
-            {navItems.map((item) => (
-              <Link
+          <nav className="flex-1 flex flex-col items-center justify-center gap-10 px-8">
+            {navItems.map((item, i) => (
+              <motion.div
                 key={item.href}
-                href={item.href}
-                onClick={() => setIsOpen(false)}
-                className={`font-mono text-xl tracking-wider transition-colors ${
-                  item.special ? "text-primary flex items-center gap-2" : "text-foreground hover:text-primary"
-                }`}
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: i * 0.1 }}
               >
-                {item.special && <RocketIcon className="w-5 h-5" />}
-                {item.label}
-              </Link>
+                <Link
+                  href={item.href}
+                  onClick={() => setIsOpen(false)}
+                  className="text-4xl font-black tracking-tighter hover:text-primary transition-colors uppercase"
+                >
+                  {item.label}
+                </Link>
+              </motion.div>
             ))}
           </nav>
-        </div>
+
+          <div className="p-10 border-t border-border/50 flex flex-col gap-6 items-center">
+            <div className="flex items-center gap-6">
+              <a href={siteData.github} target="_blank" className="p-4 rounded-2xl bg-secondary/50 border border-border/50 text-muted-foreground hover:text-primary transition-all">
+                <Github className="w-7 h-7" />
+              </a>
+              <Link
+                href="#contact"
+                onClick={() => setIsOpen(false)}
+                className="flex items-center gap-3 px-8 py-4 bg-primary text-primary-foreground rounded-2xl font-black uppercase tracking-widest text-xs"
+              >
+                <Rocket className="w-4 h-4" />
+                Hire Me
+              </Link>
+            </div>
+            <p className="text-[10px] font-mono text-muted-foreground uppercase tracking-[0.3em]">
+              System Status: Active // v2.5
+            </p>
+          </div>
+        </motion.div>
       )}
-    </div>
+    </AnimatePresence>
   )
 }
